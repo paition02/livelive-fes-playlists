@@ -84,49 +84,132 @@
       position: relative;
       min-height: 260px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, .72);
       border-radius: 8px;
-      background:
-        radial-gradient(circle at 24% 24%, rgba(255, 255, 255, .95) 0 0, transparent 30%),
-        linear-gradient(135deg, #ff5d9b, #ffd166 45%, #37d1e8);
+      background: #121722;
       box-shadow: var(--shadow);
     }
 
-    .stage {
+    .hero-slides {
       position: absolute;
-      inset: auto 18px 18px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      align-items: end;
+      inset: 0;
     }
 
-    .beam {
+    .hero-slide {
       position: absolute;
-      top: -80px;
-      width: 56px;
-      height: 360px;
-      transform: rotate(24deg);
-      background: rgba(255, 255, 255, .42);
-      filter: blur(1px);
+      inset: 0;
+      opacity: 0;
+      transition: opacity .9s ease;
     }
 
-    .beam:nth-child(1) { left: 18%; }
-    .beam:nth-child(2) { left: 45%; transform: rotate(-14deg); }
-    .beam:nth-child(3) { left: 72%; transform: rotate(16deg); }
+    .hero-slide.active {
+      opacity: 1;
+    }
 
-    .bar {
-      min-width: 0;
-      border-radius: 6px 6px 3px 3px;
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.04);
+    }
+
+    .visual::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(180deg, rgba(11, 15, 24, .02), rgba(11, 15, 24, .36)),
+        linear-gradient(90deg, rgba(11, 15, 24, .28), transparent 58%);
+      pointer-events: none;
+    }
+
+    .visual-caption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .52);
+    }
+
+    .photo-section {
+      margin: 26px 0 28px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       background: rgba(255, 255, 255, .76);
-      box-shadow: 0 10px 28px rgba(37, 53, 77, .18);
+      box-shadow: 0 12px 30px rgba(30, 38, 60, .08);
     }
 
-    .bar:nth-child(1) { height: 84px; }
-    .bar:nth-child(2) { height: 124px; }
-    .bar:nth-child(3) { height: 168px; }
-    .bar:nth-child(4) { height: 116px; }
-    .bar:nth-child(5) { height: 145px; }
+    .section-head {
+      display: flex;
+      gap: 16px;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .section-copy {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .photo-count {
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .photo-tile {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #e9ecf4;
+    }
+
+    .photo-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .18s ease;
+    }
+
+    .photo-tile:hover img {
+      transform: scale(1.035);
+    }
+
+    .photo-tile span {
+      position: absolute;
+      left: 8px;
+      bottom: 7px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: #fff;
+      background: rgba(11, 15, 24, .64);
+      font-size: 11px;
+      font-weight: 800;
+    }
 
     .tabs {
       display: flex;
@@ -324,6 +407,10 @@
       .actions {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
+
+      .photo-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 520px) {
@@ -362,6 +449,14 @@
         padding: 0 10px;
         font-size: 13px;
       }
+
+      .section-head {
+        display: block;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
@@ -373,18 +468,24 @@
         <h1 id="page-title">ラブライブ！フェス<br>予習プレイリスト</h1>
         <p class="lead">まずは15曲厳選で雰囲気をつかむ、しっかり浴びるなら50曲、当日声を出したい人はコール曲用へ。全部追いたい人向けの全曲プレイリストも置いておけます。</p>
       </div>
-      <div class="visual" aria-hidden="true">
-        <div class="beam"></div>
-        <div class="beam"></div>
-        <div class="beam"></div>
-        <div class="stage">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
+      <div class="visual" aria-label="聖地巡礼フォトのスライドショー">
+        <div class="hero-slides" data-hero-slides></div>
+        <div class="visual-caption">
+          <span>よーそろー厳選 聖地巡礼フォト</span>
+          <span data-slide-count>1 / 29</span>
         </div>
       </div>
+    </section>
+
+    <section class="photo-section" aria-labelledby="photo-title">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="photo-title">聖地フォト</h2>
+          <p class="section-copy">神田、内浦、お台場、原宿、金沢、函館まで。選んでもらった写真を全部のせ。</p>
+        </div>
+        <div class="photo-count">29 photos</div>
+      </div>
+      <div class="photo-grid" data-photo-grid></div>
     </section>
 
     <nav class="tabs" aria-label="グループ選択">
@@ -466,6 +567,14 @@
   </main>
 
   <script>
+    const holySitePhotos = Array.from({ length: 29 }, (_, index) => {
+      const number = String(index + 1).padStart(2, "0");
+      return {
+        src: `assets/holy-sites/holy-site-${number}.jpg`,
+        label: `聖地巡礼フォト ${number}`
+      };
+    });
+
     const services = [
       { key: "apple", label: "Apple Music", primary: true },
       { key: "spotify", label: "Spotify" },
@@ -561,6 +670,33 @@
         }
       }
     };
+
+    const heroSlides = document.querySelector("[data-hero-slides]");
+    const slideCount = document.querySelector("[data-slide-count]");
+    const photoGrid = document.querySelector("[data-photo-grid]");
+
+    heroSlides.innerHTML = holySitePhotos.map((photo, index) => `
+      <div class="hero-slide${index === 0 ? " active" : ""}">
+        <img src="${photo.src}" alt="${photo.label}" ${index === 0 ? 'loading="eager"' : 'loading="lazy"'}>
+      </div>
+    `).join("");
+
+    photoGrid.innerHTML = holySitePhotos.map((photo) => `
+      <a class="photo-tile" href="${photo.src}" target="_blank" rel="noreferrer" aria-label="${photo.label}">
+        <img src="${photo.src}" alt="${photo.label}" loading="lazy">
+        <span>${photo.label.replace("聖地巡礼フォト ", "#")}</span>
+      </a>
+    `).join("");
+
+    let currentSlide = 0;
+    const slides = [...document.querySelectorAll(".hero-slide")];
+
+    window.setInterval(() => {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+      slideCount.textContent = `${currentSlide + 1} / ${slides.length}`;
+    }, 4200);
 
     function serviceButtons(item) {
       return services.map((service) => {
