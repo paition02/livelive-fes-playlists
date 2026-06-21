@@ -125,12 +125,8 @@
     .visual-caption {
       position: absolute;
       left: 16px;
-      right: 16px;
       bottom: 14px;
       z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
       color: #fff;
       font-size: 13px;
       font-weight: 800;
@@ -472,7 +468,6 @@
         <div class="hero-slides" data-hero-slides></div>
         <div class="visual-caption">
           <span>聖地巡礼フォト</span>
-          <span data-slide-count>1 / 37</span>
         </div>
       </div>
     </section>
@@ -672,7 +667,6 @@
     };
 
     const heroSlides = document.querySelector("[data-hero-slides]");
-    const slideCount = document.querySelector("[data-slide-count]");
     const photoGrid = document.querySelector("[data-photo-grid]");
 
     heroSlides.innerHTML = holySitePhotos.map((photo, index) => `
@@ -695,7 +689,6 @@
       slides[currentSlide].classList.remove("active");
       currentSlide = (currentSlide + 1) % slides.length;
       slides[currentSlide].classList.add("active");
-      slideCount.textContent = `${currentSlide + 1} / ${slides.length}`;
     }, 4200);
 
     function serviceButtons(item) {
