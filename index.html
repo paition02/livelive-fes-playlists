@@ -453,13 +453,16 @@
   </main>
 
   <script>
-    const holySitePhotos = Array.from({ length: 37 }, (_, index) => {
-      const number = String(index + 1).padStart(2, "0");
-      return {
-        src: `assets/holy-sites/holy-site-${number}.jpg`,
-        label: `聖地巡礼フォト ${number}`
-      };
-    });
+    const hiddenHolySitePhotos = new Set([2, 3]);
+    const holySitePhotos = Array.from({ length: 37 }, (_, index) => index + 1)
+      .filter((number) => !hiddenHolySitePhotos.has(number))
+      .map((number) => {
+        const paddedNumber = String(number).padStart(2, "0");
+        return {
+          src: `assets/holy-sites/holy-site-${paddedNumber}.jpg`,
+          label: `聖地巡礼フォト ${paddedNumber}`
+        };
+      });
 
     const services = [
       { key: "apple", label: "Apple Music", primary: true },
