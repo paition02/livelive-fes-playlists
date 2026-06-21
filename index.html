@@ -464,6 +464,17 @@
         };
       });
 
+    function shufflePhotos(photos) {
+      const shuffled = [...photos];
+
+      for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+      }
+
+      return shuffled;
+    }
+
     const services = [
       { key: "apple", label: "Apple Music", primary: true },
       { key: "spotify", label: "Spotify" },
@@ -561,8 +572,9 @@
     };
 
     const heroSlides = document.querySelector("[data-hero-slides]");
+    const shuffledHolySitePhotos = shufflePhotos(holySitePhotos);
 
-    heroSlides.innerHTML = holySitePhotos.map((photo, index) => `
+    heroSlides.innerHTML = shuffledHolySitePhotos.map((photo, index) => `
       <div class="hero-slide${index === 0 ? " active" : ""}">
         <img src="${photo.src}" alt="${photo.label}" ${index === 0 ? 'loading="eager"' : 'loading="lazy"'}>
       </div>
