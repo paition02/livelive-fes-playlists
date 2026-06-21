@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ラブライブ！フェス 予習プレイリスト</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1b1f2a;
+      --muted: #687083;
+      --line: #dde1ea;
+      --paper: #fbfbfd;
+      --panel: #ffffff;
+      --accent: #e7407f;
+      --accent-2: #00a6d6;
+      --shadow: 0 18px 45px rgba(30, 38, 60, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(231, 64, 127, .12), transparent 34%),
+        linear-gradient(225deg, rgba(0, 166, 214, .14), transparent 38%),
+        var(--paper);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap: 24px;
+      align-items: stretch;
+      min-height: 260px;
+    }
+
+    .intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 26px 0;
+    }
+
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 260px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 24% 24%, rgba(255, 255, 255, .95) 0 0, transparent 30%),
+        linear-gradient(135deg, #ff5d9b, #ffd166 45%, #37d1e8);
+      box-shadow: var(--shadow);
+    }
+
+    .stage {
+      position: absolute;
+      inset: auto 18px 18px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      align-items: end;
+    }
+
+    .beam {
+      position: absolute;
+      top: -80px;
+      width: 56px;
+      height: 360px;
+      transform: rotate(24deg);
+      background: rgba(255, 255, 255, .42);
+      filter: blur(1px);
+    }
+
+    .beam:nth-child(1) { left: 18%; }
+    .beam:nth-child(2) { left: 45%; transform: rotate(-14deg); }
+    .beam:nth-child(3) { left: 72%; transform: rotate(16deg); }
+
+    .bar {
+      min-width: 0;
+      border-radius: 6px 6px 3px 3px;
+      background: rgba(255, 255, 255, .76);
+      box-shadow: 0 10px 28px rgba(37, 53, 77, .18);
+    }
+
+    .bar:nth-child(1) { height: 84px; }
+    .bar:nth-child(2) { height: 124px; }
+    .bar:nth-child(3) { height: 168px; }
+    .bar:nth-child(4) { height: 116px; }
+    .bar:nth-child(5) { height: 145px; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 28px 0 18px;
+      padding: 6px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .75);
+    }
+
+    .tab {
+      flex: 0 0 auto;
+      min-width: 104px;
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 14px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .tab[aria-selected="true"] {
+      color: #fff;
+      background: var(--tab-color);
+      box-shadow: 0 8px 16px rgba(30, 38, 60, .14);
+    }
+
+    .group-panel {
+      display: none;
+    }
+
+    .group-panel.active {
+      display: block;
+    }
+
+    .group-head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 0 0 16px;
+    }
+
+    .mark {
+      display: grid;
+      flex: 0 0 54px;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--group-color);
+      font-weight: 900;
+      box-shadow: 0 12px 22px rgba(30, 38, 60, .16);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .hint {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      display: flex;
+      min-height: 230px;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 12px 30px rgba(30, 38, 60, .08);
+    }
+
+    .card-top {
+      min-height: 88px;
+      padding: 18px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, var(--group-color), color-mix(in srgb, var(--group-color), #111 26%));
+    }
+
+    .type {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 850;
+      opacity: .92;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+
+    .card-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 17px;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      color: #fff;
+      background: #1d1f2b;
+    }
+
+    .secondary {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .button.disabled {
+      color: #8b92a3;
+      border: 1px solid var(--line);
+      background: #f5f6fa;
+      cursor: not-allowed;
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .note {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent-2);
+      color: var(--muted);
+      background: rgba(255, 255, 255, .74);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 840px) {
+      .top {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 190px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .shell {
+        width: min(100% - 20px, 1120px);
+        padding-top: 16px;
+      }
+
+      .intro {
+        padding: 10px 0 0;
+      }
+
+      .lead {
+        font-size: 15px;
+      }
+
+      .tab {
+        min-width: 92px;
+        padding: 10px 12px;
+      }
+
+      .group-head {
+        align-items: flex-start;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .button {
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="top" aria-labelledby="page-title">
+      <div class="intro">
+        <p class="kicker">LoveLive! Fes prep playlists</p>
+        <h1 id="page-title">ラブライブ！フェス<br>予習プレイリスト</h1>
+        <p class="lead">まずは15曲厳選で雰囲気をつかむ、しっかり浴びるなら50曲、当日声を出したい人はコール曲用へ。全部追いたい人向けの全曲プレイリストも置いておけます。</p>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <div class="beam"></div>
+        <div class="beam"></div>
+        <div class="beam"></div>
+        <div class="stage">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="グループ選択">
+      <button class="tab" type="button" style="--tab-color:#e8447d" aria-selected="true" data-group="muse">μ's</button>
+      <button class="tab" type="button" style="--tab-color:#16a4db" aria-selected="false" data-group="aqours">Aqours</button>
+      <button class="tab" type="button" style="--tab-color:#f2a900" aria-selected="false" data-group="nijigasaki">虹ヶ咲</button>
+      <button class="tab" type="button" style="--tab-color:#7d55c7" aria-selected="false" data-group="liella">Liella!</button>
+      <button class="tab" type="button" style="--tab-color:#f06aa7" aria-selected="false" data-group="hasunosora">蓮ノ空</button>
+      <button class="tab" type="button" style="--tab-color:#2f9b7b" aria-selected="false" data-group="ikizurai">いきづらい部！</button>
+    </nav>
+
+    <section class="group-panel active" id="muse" style="--group-color:#e8447d">
+      <div class="group-head">
+        <div class="mark">μ's</div>
+        <div>
+          <h2>μ's</h2>
+          <p class="hint">原点から一気に温めるセット。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <section class="group-panel" id="aqours" style="--group-color:#16a4db">
+      <div class="group-head">
+        <div class="mark">Aq</div>
+        <div>
+          <h2>Aqours</h2>
+          <p class="hint">海風強め、ライブ熱量高め。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <section class="group-panel" id="nijigasaki" style="--group-color:#f2a900">
+      <div class="group-head">
+        <div class="mark">虹</div>
+        <div>
+          <h2>虹ヶ咲</h2>
+          <p class="hint">ソロ曲もユニット曲も拾える入口。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <section class="group-panel" id="liella" style="--group-color:#7d55c7">
+      <div class="group-head">
+        <div class="mark">Li</div>
+        <div>
+          <h2>Liella!</h2>
+          <p class="hint">勢いとハーモニーをまとめて確認。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <section class="group-panel" id="hasunosora" style="--group-color:#f06aa7">
+      <div class="group-head">
+        <div class="mark">蓮</div>
+        <div>
+          <h2>蓮ノ空</h2>
+          <p class="hint">最近追い始めた人にも入りやすい導線。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <section class="group-panel" id="ikizurai" style="--group-color:#2f9b7b">
+      <div class="group-head">
+        <div class="mark">い</div>
+        <div>
+          <h2>いきづらい部！</h2>
+          <p class="hint">気になる曲をあとから足していく枠。</p>
+        </div>
+      </div>
+      <div class="cards"></div>
+    </section>
+
+    <p class="note">各サービスのURLが入ったら、準備中のボタンがそのまま本番リンクに変わります。主要どころとして Apple Music / Spotify / Amazon Music / LINE MUSIC / YouTube Music / AWA に対応できます。</p>
+  </main>
+
+  <script>
+    const services = [
+      { key: "apple", label: "Apple Music", primary: true },
+      { key: "spotify", label: "Spotify" },
+      { key: "amazon", label: "Amazon Music" },
+      { key: "line", label: "LINE MUSIC" },
+      { key: "youtube", label: "YouTube Music" },
+      { key: "awa", label: "AWA" }
+    ];
+
+    const playlistTypes = [
+      {
+        type: "50曲予習",
+        title: "しっかり予習",
+        desc: "時間をかけて聴きたい人向け。代表曲、ライブ定番、流れをつかみたい曲を広めに。",
+        urls: {
+          apple: "#",
+          spotify: "#",
+          amazon: "#",
+          line: "#",
+          youtube: "#",
+          awa: "#"
+        }
+      },
+      {
+        type: "15曲厳選",
+        title: "まずはここから",
+        desc: "初見やライト参加向け。移動中や飲み会前に一周しやすい短めセット。",
+        urls: {
+          apple: "#",
+          spotify: "#",
+          amazon: "#",
+          line: "#",
+          youtube: "#",
+          awa: "#"
+        }
+      },
+      {
+        type: "コール曲用",
+        title: "当日声出し準備",
+        desc: "コールやレスポンスを意識して聴きたい曲を集めた実戦向け。",
+        urls: {
+          apple: "#",
+          spotify: "#",
+          amazon: "#",
+          line: "#",
+          youtube: "#",
+          awa: "#"
+        }
+      },
+      {
+        type: "全曲",
+        title: "全部まとめて",
+        desc: "シリーズ内の楽曲をまとめて置くための全曲プレイリスト枠。",
+        urls: {
+          apple: "#",
+          spotify: "#",
+          amazon: "#",
+          line: "#",
+          youtube: "#",
+          awa: "#"
+        }
+      }
+    ];
+
+    const groupPlaylistUrls = {
+      aqours: {
+        "50曲予習": {
+          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A850%E6%9B%B2/pl.u-LdbqDM5uxYYpoYN"
+        },
+        "15曲厳選": {
+          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-Zmbl3koI077jM71"
+        },
+        "コール曲用": {
+          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A8%E3%82%B3%E3%83%BC%E3%83%AB%E6%9B%B2/pl.u-LdbqDWBsxYYpoYN"
+        }
+      }
+    };
+
+    function serviceButtons(item) {
+      return services.map((service) => {
+        const url = item.urls[service.key];
+        const isReady = url && url !== "#";
+        const className = service.primary && isReady ? "button primary" : `button ${isReady ? "secondary" : "disabled"}`;
+
+        if (!isReady) {
+          return `<span class="${className}" aria-disabled="true" title="準備中">${service.label}</span>`;
+        }
+
+        return `<a class="${className}" href="${url}" target="_blank" rel="noreferrer">${service.label}</a>`;
+      }).join("");
+    }
+
+    document.querySelectorAll(".cards").forEach((container) => {
+      const group = container.closest(".group-panel").id;
+      container.innerHTML = playlistTypes.map((item) => `
+        <article class="card">
+          <div class="card-top">
+            <p class="type">${item.type}</p>
+            <h3>${item.title}</h3>
+          </div>
+          <div class="card-body">
+            <p class="desc">${item.desc}</p>
+            <div class="actions">
+              ${serviceButtons({
+                ...item,
+                urls: {
+                  ...item.urls,
+                  ...(groupPlaylistUrls[group]?.[item.type] ?? {})
+                }
+              })}
+            </div>
+          </div>
+        </article>
+      `).join("");
+    });
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const group = tab.dataset.group;
+        document.querySelectorAll(".tab").forEach((item) => {
+          item.setAttribute("aria-selected", String(item === tab));
+        });
+        document.querySelectorAll(".group-panel").forEach((panel) => {
+          panel.classList.toggle("active", panel.id === group);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
