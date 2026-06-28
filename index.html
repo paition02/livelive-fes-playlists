@@ -218,17 +218,19 @@
     }
 
     .type {
-      margin: 0 0 8px;
-      font-size: 13px;
+      margin: 4px 0 0;
+      font-size: 24px;
+      line-height: 1.14;
       font-weight: 850;
       opacity: .92;
     }
 
     h3 {
       margin: 0;
-      font-size: 22px;
-      line-height: 1.24;
+      font-size: 14px;
+      line-height: 1.38;
       letter-spacing: 0;
+      opacity: .86;
     }
 
     .card-body {
@@ -356,6 +358,10 @@
         min-height: 40px;
         padding: 0 10px;
         font-size: 13px;
+      }
+
+      .type {
+        font-size: 22px;
       }
 
     }
@@ -542,10 +548,14 @@
     const groupPlaylistUrls = {
       muse: {
         "50曲予習": {
-          apple: "https://music.apple.com/jp/playlist/%CE%BCs-%E4%BA%88%E7%BF%9250%E6%9B%B2/pl.u-76oNNpeuW94VvpA"
+          apple: "https://music.apple.com/jp/playlist/%CE%BCs-%E4%BA%88%E7%BF%9250%E6%9B%B2/pl.u-76oNNpeuW94VvpA",
+          spotify: "https://open.spotify.com/playlist/184lyFFaQKIzqAJgzwqjdg",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFywmBUYEVhiy8TN4gTxOOd2"
         },
         "15曲厳選": {
-          apple: "https://music.apple.com/jp/playlist/%CE%BCs-%E4%BA%88%E7%BF%9215%E6%9B%B2/pl.u-9N9LLJWCx3251rM"
+          apple: "https://music.apple.com/jp/playlist/%CE%BCs-%E4%BA%88%E7%BF%9215%E6%9B%B2/pl.u-9N9LLJWCx3251rM",
+          spotify: "https://open.spotify.com/playlist/1UnRS1v1T0Nl7JJM0BvOZR",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFzH19sygTlx1x8f7l4ChqNU"
         }
       },
       aqours: {
@@ -555,37 +565,55 @@
           youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFz90lk6c12DLVhoUDNupAcS"
         },
         "15曲厳選": {
-          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-Zmbl3koI077jM71"
+          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-Zmbl3koI077jM71",
+          spotify: "https://open.spotify.com/playlist/5UfVS7GMvwwgG7oH6YWD6Q",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFzMvjwy3TkXbKvp_QtKNgSa"
         },
         "コール曲用": {
-          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A8%E3%82%B3%E3%83%BC%E3%83%AB%E6%9B%B2/pl.u-LdbqDWBsxYYpoYN"
+          apple: "https://music.apple.com/jp/playlist/aqours-%E4%BA%88%E7%BF%92%E7%94%A8%E3%82%B3%E3%83%BC%E3%83%AB%E6%9B%B2/pl.u-LdbqDWBsxYYpoYN",
+          spotify: "https://open.spotify.com/playlist/2evtLaGPm7Akl5eQ4zXZOF",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFwhb--2JY7mmD-DwXGRF2r4"
         },
         "全曲": {
-          apple: "https://music.apple.com/jp/playlist/aqours-%E5%85%A8%E6%9B%B2/pl.u-LdbqDyguxYYpoYN"
+          apple: "https://music.apple.com/jp/playlist/aqours-%E5%85%A8%E6%9B%B2/pl.u-LdbqDyguxYYpoYN",
+          spotify: "https://open.spotify.com/playlist/303HvYeDCR6CcMXdAUjPKq",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFwj8dHm073rmMMrMLNyXjFu"
         }
       },
       nijigasaki: {
         "全曲": {
-          apple: "https://music.apple.com/jp/playlist/%E8%99%B9%E3%83%B6%E5%92%B2-%E5%85%A8%E6%9B%B2/pl.u-Ymb0DBgtPRRJ5R3"
+          apple: "https://music.apple.com/jp/playlist/%E8%99%B9%E3%83%B6%E5%92%B2-%E5%85%A8%E6%9B%B2/pl.u-Ymb0DBgtPRRJ5R3",
+          spotify: "https://open.spotify.com/playlist/4VBeIs0h5VBiB1ZZHtkbgV",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFyHdQM4SljeoEvzNFd1Zhrt"
         }
       },
       liella: {
         "50曲予習": {
-          apple: "https://music.apple.com/jp/playlist/liella-%E4%BA%88%E7%BF%92%E7%94%A850%E6%9B%B2/pl.u-V9D77GGfBvq73dK"
+          apple: "https://music.apple.com/jp/playlist/liella-%E4%BA%88%E7%BF%92%E7%94%A850%E6%9B%B2/pl.u-V9D77GGfBvq73dK",
+          spotify: "https://open.spotify.com/playlist/5U1HrHVYb65jWSH1qToX1T",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFwfXcsNVCnZsXUSCdGYteVO"
         },
         "15曲厳選": {
-          apple: "https://music.apple.com/jp/playlist/liella-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-DdANNaBIakyR094"
+          apple: "https://music.apple.com/jp/playlist/liella-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-DdANNaBIakyR094",
+          spotify: "https://open.spotify.com/playlist/3yOLiTtJLK4tN1xgPtnJTi",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFzDuCHiz1D4wlbXgJYPJp1k"
         },
         "コール曲用": {
-          apple: "https://music.apple.com/jp/playlist/liella-%E3%82%B3%E3%83%BC%E3%83%AB%E6%9B%B2/pl.u-mJy88D8FzxGgN6m"
+          apple: "https://music.apple.com/jp/playlist/liella-%E3%82%B3%E3%83%BC%E3%83%AB%E6%9B%B2/pl.u-mJy88D8FzxGgN6m",
+          spotify: "https://open.spotify.com/playlist/5LSf8JQvmniHv1Kczqf6ZZ",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFyDcS_srRtGClqPHqHBcQpc"
         }
       },
       hasunosora: {
         "15曲厳選": {
-          apple: "https://music.apple.com/jp/playlist/%E8%93%AE%E3%83%8E%E7%A9%BA-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-vxy6K4Muz7aERLG"
+          apple: "https://music.apple.com/jp/playlist/%E8%93%AE%E3%83%8E%E7%A9%BA-%E4%BA%88%E7%BF%92%E7%94%A815%E6%9B%B2/pl.u-vxy6K4Muz7aERLG",
+          spotify: "https://open.spotify.com/playlist/79LLAjkvwdt7jwLNWxKuol",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFze9HGNl7CwlgajJs6qob_L"
         },
         "全曲": {
-          apple: "https://music.apple.com/jp/playlist/%E8%93%AE%E3%83%8E%E7%A9%BA/pl.u-4JomK7GtaMqVLRL"
+          apple: "https://music.apple.com/jp/playlist/%E8%93%AE%E3%83%8E%E7%A9%BA/pl.u-4JomK7GtaMqVLRL",
+          spotify: "https://open.spotify.com/playlist/4hwgR2DFdQu4z7Pgm8C6Te",
+          youtube: "https://music.youtube.com/playlist?list=PLUkEhMGscoFwgKaektEyD6EzQsVz6J9a3"
         }
       }
     };
@@ -627,8 +655,8 @@
       container.innerHTML = playlistTypes.map((item) => `
         <article class="card">
           <div class="card-top">
-            <p class="type">${item.type}</p>
             <h3>${item.title}</h3>
+            <p class="type">${item.type}</p>
           </div>
           <div class="card-body">
             <p class="desc">${item.desc}</p>
